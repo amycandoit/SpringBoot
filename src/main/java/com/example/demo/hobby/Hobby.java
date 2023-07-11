@@ -2,7 +2,6 @@ package com.example.demo.hobby;
 
 import com.example.demo.member.Member;
 import com.example.demo.store.Store;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
