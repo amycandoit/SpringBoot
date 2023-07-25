@@ -18,26 +18,26 @@ import java.util.Date;
 public class LoggingAspect {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Before("execution(* com.example.demo.members.controller.MembersController.*(..))")
-    public void loggingBefore(){
-        log.info(getClass() + " " + LocalDateTime.now());
-    }
-
-    @After("execution(* com.example.demo.members.controller.MembersController.*(..))")
-    public void loggingAfter(){
-        log.info(getClass() + " " + LocalDateTime.now());
-    }
-//    @Around("execution(* com.example.demo.members.controller.MembersController.*(..))")
-//    public Object loggingAround(ProceedingJoinPoint point) throws Throwable {
-//        long startTime = new Date().getTime();
-//        log.info("start : " + point.getSignature().getName()
-//                + ", " + point.getSignature().getDeclaringTypeName());
-//        Object proceed = point.proceed();
-//        log.info("after : " + point.getSignature().getName()
-//                + ", " + point.getSignature().getDeclaringTypeName());
-//        log.info("ms : " + (new Date().getTime() - startTime));
-//        return proceed;
+//    @Before("execution(* com.example.demo.members.controller.MembersController.*(..))")
+//    public void loggingBefore(){
+//        log.info(getClass() + " " + LocalDateTime.now());
 //    }
+//
+//    @After("execution(* com.example.demo.members.controller.MembersController.*(..))")
+//    public void loggingAfter(){
+//        log.info(getClass() + " " + LocalDateTime.now());
+//    }
+    @Around("execution(* com.example.demo.todos.service.TodoService.*(..))")
+    public Object loggingAround(ProceedingJoinPoint point) throws Throwable {
+        long startTime = new Date().getTime();
+        log.info("start : " + point.getSignature().getName()
+                + ", " + point.getSignature().getDeclaringTypeName());
+        Object proceed = point.proceed();
+        log.info("after : " + point.getSignature().getName()
+                + ", " + point.getSignature().getDeclaringTypeName());
+        log.info("ms : " + (new Date().getTime() - startTime));
+        return proceed;
+    }
 
 //    @Around("execution(* com.example.demo.members.*.*.*(..))")
 //    public Object loggingAround1(ProceedingJoinPoint point) throws Throwable {

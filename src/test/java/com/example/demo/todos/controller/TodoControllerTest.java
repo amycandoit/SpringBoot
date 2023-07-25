@@ -157,7 +157,7 @@ class TodoControllerTest {
         void likeTitle() throws Exception{
             mockMvc.perform(
                             get("/api/v1/todos")
-                                    .param("title", "t")
+                                    .param("title", "a")
                     )
                     .andExpect(
                             status().isOk())
@@ -167,10 +167,10 @@ class TodoControllerTest {
                             jsonPath("$.content.[0].id").isNotEmpty())
                     .andExpect(
                             jsonPath("$.content.[0].title")
-                                    .value("t"))
+                                    .value("a"))
                     .andExpect(
                             jsonPath("$.content.[0].content")
-                                    .value("t"))
+                                    .value("a"))
                     .andExpect(jsonPath("$.totalElements")
                             .value(1));
         }
@@ -259,9 +259,9 @@ class TodoControllerTest {
                     .andExpect(
                             status().isOk())
                     .andExpect(
-                            jsonPath("$.content", hasSize(6)))
+                            jsonPath("$.content", hasSize(7)))
                     .andExpect(jsonPath("$.totalElements")
-                            .value(6))
+                            .value(7))
             ;
         }
         @Test
@@ -270,7 +270,7 @@ class TodoControllerTest {
             mockMvc.perform(
                             get("/api/v1/todos")
                                     .param("likeGoe", "10")
-                                    .param("likeGoe", "15")
+                                    .param("likeLoe", "15")
                     )
                     .andExpect(
                             status().isOk())
@@ -307,13 +307,12 @@ class TodoControllerTest {
                 new Todo(null, "a", "a"
                         , false, 0, member)
         );
+        List<Todo> todos = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
-            todoRepository.save(
-                    new Todo(null, "t" + i,"t" + i
-                            , false, i, member)
-            );
+            todos.add(new Todo(null, "t" + i,"t" + i
+                    , false, i, member));
         }
-
+        todoRepository.saveAll(todos);
         MemberLogin entity = new MemberLogin(this.member, LocalDateTime.now());
         memberLoginRepository.save(entity);
         entityManager.flush();

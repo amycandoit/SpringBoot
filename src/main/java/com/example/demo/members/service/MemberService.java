@@ -6,6 +6,7 @@ import com.example.demo.config.domain.entity.MemberLogin;
 import com.example.demo.config.exception.ExistEmailException;
 import com.example.demo.config.exception.LoginFailException;
 import com.example.demo.config.service.MemberLoginService;
+import com.example.demo.members.domain.dto.MemberCondition;
 import com.example.demo.members.domain.entity.Member;
 import com.example.demo.members.domain.request.LoginRequest;
 import com.example.demo.members.domain.request.SignupRequest;
@@ -45,9 +46,13 @@ public class MemberService {
         return new LoginResponse(member.getId(), member.getName(), member.getAge(), token);
     }
 
-    public Page<MemberResponse> findAll(PageRequest request){
+    public Page<MemberResponse> findAll(PageRequest request) {
         Page<Member> allBy = memberRepository.findAllFetch(request);
         return allBy.map(MemberResponse::new);
+    }
+    @Transactional(readOnly = true)
+    public Page<MemberResponse> getAll(PageRequest pageRequest, MemberCondition memberCondition) {
+        return memberRepository.findAllByName(pageRequest, memberCondition);
     }
     public Map<String, Object> getTokenToData(String token){
         return authService.getClaims(token);

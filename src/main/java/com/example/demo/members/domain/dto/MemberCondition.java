@@ -1,0 +1,15 @@
+package com.example.demo.members.domain.dto;
+
+import lombok.*;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+@Setter
+public class MemberCondition {
+    private String name;
+    private Integer ageGoe;
+    private Integer ageLoe;
+}
+
