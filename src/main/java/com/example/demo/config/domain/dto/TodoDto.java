@@ -16,5 +16,6 @@ public class TodoDto {
         content = todo.getContent();
         isDone = todo.isDone();
         likeCount = todo.getLikeCount();
+//
     }
 }
